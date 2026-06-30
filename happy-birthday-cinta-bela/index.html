@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday Cinta Bela</title>
+  <meta name="description" content="Website virtual gift song pixel art dengan galeri polaroid dan pesan personal." />
+  <link rel="preload" href="assets/background.jpg" as="image" />
+  <link rel="preload" href="assets/character.png" as="image" />
+  <link rel="preload" href="assets/character_hover.png" as="image" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="start-screen" id="startScreen">
+    <button class="start-button" type="button" id="startButton">
+      Buka Hadiah
+    </button>
+  </div>
+
+  <audio id="bgMusic" src="assets/music/kota.mpeg" preload="auto" loop playsinline></audio>
+
+  <main class="hero" aria-label="Tampilan awal virtual gift song">
+  <main class="hero" aria-label="Tampilan awal virtual gift song">
+    <div class="hero__background" aria-hidden="true"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="pixel-rain" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+
+    <section class="hero__stage">
+      <button
+        class="character-card"
+        type="button"
+        aria-label="Klik karakter untuk membuka tiga foto polaroid"
+        aria-controls="polaroid-gallery"
+        aria-expanded="false"
+        data-open-gallery
+      >
+        <img src="assets/character.png" alt="Karakter pixel perempuan dengan jaket pink" class="character character--default" />
+        <img src="assets/character_hover.png" alt="" class="character character--hover" aria-hidden="true" />
+        <span class="character-card__hint">Klik karakter</span>
+      </button>
+
+<div class="lyrics-panel" id="lyricsPanel" aria-live="polite">
+  <!-- Area kosong untuk lirik lagu nanti -->
+</div> 
+
+      <section
+        id="polaroid-gallery"
+        class="polaroid-layer"
+        aria-label="Galeri polaroid paket premium"
+        aria-hidden="true"
+        data-gallery
+      >
+        <button class="gallery-close" type="button" aria-label="Tutup galeri polaroid" data-close-gallery>×</button>
+
+        <div class="polaroid-row" data-polaroid-row></div>
+
+        <article class="memory-detail" aria-hidden="true" data-memory-detail>
+          <div class="memory-detail__polaroid" aria-label="Foto polaroid terpilih">
+            <div class="memory-detail__photo" data-detail-photo></div>
+          </div>
+
+          <div class="memory-detail__content">
+            <button class="memory-detail__back" type="button" data-back-gallery>← Kembali</button>
+            <h2 class="memory-detail__date" data-detail-date></h2>
+            <p class="memory-detail__message" data-detail-message></p>
+          </div>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
