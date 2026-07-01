@@ -80,10 +80,18 @@ button {
     overflow:hidden;
 }
 
+.hero__canvas {
+  position: relative;
+  flex-shrink: 0;
+  width: 1440px;
+  height: 810px;
+  transform-origin: center center;
+}
+
 .hero__background {
   position: absolute;
   inset: 0;
-  z-index: -3;
+  z-index: 0;
   background-image: url("assets/background.jpg");
   background-size: cover;
   background-position: center;
@@ -95,7 +103,7 @@ button {
 .hero__overlay {
   position: absolute;
   inset: 0;
-  z-index: -2;
+  z-index: 1;
   background:
     radial-gradient(circle at 72% 46%, rgba(255, 185, 225, 0.10), transparent 28%),
     linear-gradient(90deg, rgba(12, 9, 18, 0.18) 0%, rgba(12, 9, 18, 0.06) 42%, rgba(12, 9, 18, 0.36) 100%),
@@ -106,7 +114,7 @@ button {
 .pixel-rain {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 2;
   pointer-events: none;
   opacity: 0.7;
 }
@@ -132,8 +140,8 @@ button {
 
 .hero__stage{
     position:relative;
-    width:1440px;
-    height:810px;
+    width:100%;
+    height:100%;
     overflow:hidden;
 }
 
@@ -254,6 +262,11 @@ button {
     0 0 22px var(--panel-glow);
 
   pointer-events: none;
+}
+
+.lyrics-line {
+  display: inline-block;
+  animation: lyricFade 600ms ease both;
 }
 
 .polaroid-layer {
@@ -604,46 +617,6 @@ body.is-memory-open .memory-detail {
   100% { transform: translate3d(-52px, 128px, 0) rotate(28deg); opacity: 0; }
 }
 
-@media (max-width: 900px) {
-  body {
-    overflow: hidden;
-  }
-
-  .hero,
-  .hero__stage {
-    height: 100dvh;
-    min-height: 100dvh;
-    overflow: hidden;
-  }
-
-  .character-card {
-    left: 50%;
-    bottom: -110px;
-    width: min(76vw, 390px);
-    transform: translateX(-50%);
-  }
-
-  .character-card:hover,
-  .character-card:focus-visible {
-    transform: translateX(-50%) translate(-3px, -3px) scale(1.045);
-  }
-
-  .lyrics-panel {
-    left: 50%;
-    top: 21%;
-    width: min(86vw, 560px);
-    min-height: 100px;
-    transform: translateX(-50%);
-    justify-content: center;
-    text-align: center;
-    font-size: clamp(18px, 5vw, 28px);
-  }
-
-  .lyrics-line {
-  display: inline-block;
-  animation: lyricFade 600ms ease both;
-}
-
 @keyframes lyricFade {
   0% {
     opacity: 0;
@@ -656,231 +629,48 @@ body.is-memory-open .memory-detail {
   }
 }
 
-  body.is-memory-open .polaroid-layer {
-    align-items: start;
-    overflow-y: auto;
-    padding-top: clamp(68px, 12vw, 96px);
-    padding-bottom: clamp(24px, 7vw, 56px);
-  }
-
-  .polaroid-row {
-    width: min(92vw, 560px);
-    gap: 8px;
-  }
-
-  .polaroid-card {
-    width: clamp(86px, 27vw, 142px);
-  }
-
-  .memory-detail {
-    grid-template-columns: 1fr;
-    width: min(92vw, 620px);
-    gap: 20px;
-    padding-top: 36px;
-    min-height: auto;
-    text-align: center;
-  }
-
-  .memory-detail__polaroid {
-    width: min(70vw, 300px);
-    justify-self: center;
-  }
-
-  .memory-detail__content {
-    justify-self: center;
-    width: 100%;
-    text-align: center;
-  }
-
-  .memory-detail__back {
-    margin-bottom: 14px;
-  }
-
-  .memory-detail__date {
-    font-size: clamp(34px, 10vw, 56px);
-  }
-
-  .memory-detail__message {
-    font-size: clamp(15px, 4.1vw, 19px);
-  }
+#rotate-warning {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  color: #fff;
+  text-align: center;
 }
 
-@media (max-width: 560px) {
-  .polaroid-layer {
-    align-items: center;
-    padding-top: clamp(20px, 5vw, 72px);
+.rotate-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.phone-icon {
+  font-size: 90px;
+  animation: rotatePhone 1.5s infinite;
+}
+
+.rotate-content h2 {
+  margin: 20px 0 0;
+  font-size: 34px;
+}
+
+@keyframes rotatePhone {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(-90deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@media screen and (orientation: portrait) and (max-width: 900px) {
+  #rotate-warning {
+    display: flex;
   }
 
-  .polaroid-row {
-    flex-wrap: nowrap;
-    gap: 6px;
-    transform: translateY(0) scale(0.96);
+  .hero,
+  .start-screen {
+    visibility: hidden;
+    pointer-events: none;
   }
-
-  body.is-gallery-open .polaroid-row {
-    transform: translateY(0) scale(1);
-  }
-
-  body.is-memory-open .polaroid-row {
-    transform: translateY(0) scale(0.94);
-  }
-
-  .gallery-close {
-    top: 18px;
-    right: 18px;
-  }
-
-  .memory-detail {
-    padding-top: 0;
-  }
-
-  .memory-detail__polaroid {
-    width: min(76vw, 255px);
-    padding-bottom: 42px;
-  }
-}
-
-@media (max-width: 480px) {
-  .character-card {
-    bottom: -92px;
-    width: min(88vw, 340px);
-  }
-
-  .package-panel {
-    top: 18%;
-  }
-}
-
-
-#rotate-warning{
-
-    display:none;
-
-    position:fixed;
-
-    top:0;
-
-    left:0;
-
-    width:100vw;
-
-    height:100vh;
-
-    background:#000;
-
-    color:white;
-
-    z-index:999999;
-
-    justify-content:center;
-
-    align-items:center;
-
-    text-align:center;
-
-}
-
-.rotate-content{
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-}
-
-.phone-icon{
-
-    font-size:90px;
-
-    animation:rotatePhone 1.5s infinite;
-
-}
-
-.rotate-content h2{
-
-    margin-top:20px;
-
-    font-size:34px;
-
-}
-
-.rotate-content p{
-
-    margin-top:10px;
-
-    font-size:20px;
-
-    opacity:.8;
-
-}
-
-@keyframes rotatePhone{
-
-    0%{
-
-        transform:rotate(0deg);
-
-    }
-
-    50%{
-
-        transform:rotate(-90deg);
-
-    }
-
-    100%{
-
-        transform:rotate(0deg);
-
-    }
-
-}
-
-/* HP PORTRAIT */
-
-@media screen and (max-width:900px) and (orientation:portrait){
-
-    #rotate-warning{
-
-        display:flex;
-
-    }
-
-    body{
-
-        overflow:hidden;
-
-    }
-
-}
-
-
-@media screen and (max-width:900px) and (orientation:landscape){
-
-    #rotate-warning{
-
-        display:none;
-
-    }
-
-}
-
-
-@media (orientation: landscape){
-
-.hero__stage{
-
-        transform-origin:center center;
-
-        transform:scale(
-            min(
-                calc(100vw / 1440),
-                calc(100vh / 810)
-            )
-        );
-
-    }
-
 }

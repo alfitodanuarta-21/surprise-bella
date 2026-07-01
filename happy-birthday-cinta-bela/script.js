@@ -1,4 +1,12 @@
 const openGalleryButtons = document.querySelectorAll("[data-open-gallery]");
+const heroCanvas = document.querySelector("#heroCanvas");
+
+const STAGE_WIDTH = 1440;
+const STAGE_HEIGHT = 810;
+const MOBILE_LANDSCAPE_QUERY = window.matchMedia("(orientation: landscape) and (max-height: 500px)");
+const viewportMeta = document.querySelector('meta[name="viewport"]');
+const DEFAULT_VIEWPORT = "width=device-width, initial-scale=1";
+const STAGE_VIEWPORT = `width=${STAGE_WIDTH}`;
 const gallery = document.querySelector("[data-gallery]");
 const closeGalleryButton = document.querySelector("[data-close-gallery]");
 const polaroidRow = document.querySelector("[data-polaroid-row]");
@@ -84,6 +92,36 @@ function startWebsiteMusic() {
 }
 
 startButton?.addEventListener("click", startWebsiteMusic);
+
+function updateStageScale() {
+  if (!heroCanvas || !viewportMeta) return;
+
+  if (MOBILE_LANDSCAPE_QUERY.matches) {
+    viewportMeta.setAttribute("content", DEFAULT_VIEWPORT);
+
+    requestAnimationFrame(() => {
+      const scale = Math.max(
+        window.innerWidth / STAGE_WIDTH,
+        window.innerHeight / STAGE_HEIGHT
+      );
+
+      viewportMeta.setAttribute("content", STAGE_VIEWPORT);
+
+      requestAnimationFrame(() => {
+        heroCanvas.style.transform = `scale(${scale})`;
+      });
+    });
+  } else {
+    viewportMeta.setAttribute("content", DEFAULT_VIEWPORT);
+    heroCanvas.style.transform = "";
+  }
+}
+
+window.addEventListener("resize", updateStageScale);
+window.addEventListener("orientationchange", updateStageScale);
+window.visualViewport?.addEventListener("resize", updateStageScale);
+MOBILE_LANDSCAPE_QUERY.addEventListener("change", updateStageScale);
+updateStageScale();
 
 // Ganti data di bawah ini saat foto, tanggal, dan pesan asli sudah siap.
 // Isi `image` dengan lokasi file, contoh: "assets/photos/foto-1.jpg".

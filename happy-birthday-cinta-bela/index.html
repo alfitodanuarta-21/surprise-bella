@@ -20,11 +20,7 @@
             📱
         </div>
 
-        <h2>Putar Layar Anda</h2>
-
-        <p>
-            Gunakan mode landscape untuk pengalaman terbaik
-        </p>
+        <h2>Please rotate your phone</h2>
 
     </div>
 
@@ -40,8 +36,9 @@
   <audio id="bgMusic" src="assets/music/kota.mpeg" preload="auto" loop playsinline></audio>
 
   <main class="hero" aria-label="Tampilan awal virtual gift song">
+    <div class="hero__canvas" id="heroCanvas">
     <div class="hero__background" aria-hidden="true"></div>
-    <div class="hero__overly" aria-hidden="true"></div>
+    <div class="hero__overlay" aria-hidden="true"></div>
     <div class="pixel-rain" aria-hidden="true">
       <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
     </div>
@@ -88,6 +85,7 @@
         </article>
       </section>
     </section>
+    </div>
   </main>
 
   <script src="script.js"></script>
