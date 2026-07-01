@@ -870,7 +870,7 @@ body.is-memory-open .memory-detail {
 
 @media (orientation: landscape){
 
-    .hero__stage{
+.hero__stage{
 
         transform-origin:center center;
 
