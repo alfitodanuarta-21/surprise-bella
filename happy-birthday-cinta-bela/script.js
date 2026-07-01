@@ -1,3 +1,7 @@
+const STAGE_WIDTH = 1440;
+const STAGE_HEIGHT = 810;
+const MOBILE_LANDSCAPE_QUERY = window.matchMedia("(max-width: 900px) and (orientation: landscape)");
+
 const openGalleryButtons = document.querySelectorAll("[data-open-gallery]");
 const gallery = document.querySelector("[data-gallery]");
 const closeGalleryButton = document.querySelector("[data-close-gallery]");
@@ -12,6 +16,7 @@ const bgMusic = document.querySelector("#bgMusic");
 const startScreen = document.querySelector("#startScreen");
 const startButton = document.querySelector("#startButton");
 const lyricsPanel = document.querySelector("#lyricsPanel");
+const heroStage = document.querySelector(".hero__stage");
 
 const LYRICS = [
   { time: 0, text: "jatuh cinta memang manis" },
@@ -84,6 +89,28 @@ function startWebsiteMusic() {
 }
 
 startButton?.addEventListener("click", startWebsiteMusic);
+
+function updateStageScale() {
+  if (!heroStage) return;
+
+  if (MOBILE_LANDSCAPE_QUERY.matches) {
+    const scale = Math.min(
+      window.innerWidth / STAGE_WIDTH,
+      window.innerHeight / STAGE_HEIGHT
+    );
+
+    heroStage.style.transform = `scale(${scale})`;
+    heroStage.style.transformOrigin = "center center";
+  } else {
+    heroStage.style.transform = "";
+    heroStage.style.transformOrigin = "";
+  }
+}
+
+window.addEventListener("resize", updateStageScale);
+window.addEventListener("orientationchange", updateStageScale);
+MOBILE_LANDSCAPE_QUERY.addEventListener("change", updateStageScale);
+updateStageScale();
 
 // Ganti data di bawah ini saat foto, tanggal, dan pesan asli sudah siap.
 // Isi `image` dengan lokasi file, contoh: "assets/photos/foto-1.jpg".

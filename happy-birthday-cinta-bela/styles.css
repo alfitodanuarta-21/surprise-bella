@@ -1,4 +1,11 @@
+/* ==========================================================================
+   Design tokens
+   ========================================================================== */
+
 :root {
+  --stage-width: 1440px;
+  --stage-height: 810px;
+
   --text: #fff7ff;
   --text-shadow: #5d446d;
   --soft-shadow: rgba(19, 11, 25, 0.72);
@@ -13,7 +20,13 @@
   --date-shadow: #5e2d64;
 }
 
-* {
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -29,12 +42,53 @@ body {
   background: #15111f;
   color: var(--text);
   font-family: "Courier New", Courier, ui-monospace, monospace;
-  overflow: hidden;
 }
 
 button {
   font: inherit;
 }
+
+/* ==========================================================================
+   Rotate warning (mobile portrait)
+   ========================================================================== */
+
+#rotate-warning {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  color: #fff;
+  text-align: center;
+}
+
+.rotate-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.phone-icon {
+  font-size: 90px;
+  animation: rotate-phone 1.5s infinite;
+}
+
+.rotate-content h2 {
+  margin: 20px 0 0;
+  font-size: 34px;
+}
+
+.rotate-content p {
+  margin: 10px 0 0;
+  font-size: 20px;
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   Start screen
+   ========================================================================== */
 
 .start-screen {
   position: fixed;
@@ -71,13 +125,17 @@ button {
   transform: translate(-2px, -2px);
 }
 
-.hero{
-    position:fixed;
-    inset:0;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
+/* ==========================================================================
+   Hero shell + fixed stage (1440 x 810)
+   ========================================================================== */
+
+.hero {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .hero__background {
@@ -103,6 +161,18 @@ button {
   pointer-events: none;
 }
 
+.hero__stage {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--stage-width);
+  height: var(--stage-height);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Ambient pixel rain
+   ========================================================================== */
+
 .pixel-rain {
   position: absolute;
   inset: 0;
@@ -121,7 +191,7 @@ button {
   animation: pixel-fall 3.8s linear infinite;
 }
 
-.pixel-rain i:nth-child(1) { left: 8%; top: 10%; animation-delay: -0.8s; }
+.pixel-rain i:nth-child(1) { left: 8%;  top: 10%; animation-delay: -0.8s; }
 .pixel-rain i:nth-child(2) { left: 18%; top: 72%; animation-delay: -3.2s; }
 .pixel-rain i:nth-child(3) { left: 44%; top: 30%; animation-delay: -1.6s; }
 .pixel-rain i:nth-child(4) { left: 55%; top: 17%; animation-delay: -2.5s; }
@@ -130,25 +200,24 @@ button {
 .pixel-rain i:nth-child(7) { left: 92%; top: 78%; animation-delay: -2.0s; }
 .pixel-rain i:nth-child(8) { left: 37%; top: 82%; animation-delay: -0.3s; }
 
-.hero__stage{
-    position:relative;
-    width:1440px;
-    height:810px;
-    overflow:hidden;
-}
+/* ==========================================================================
+   Character card
+   ========================================================================== */
 
 .character-card {
   position: absolute;
-  left: clamp(22px, 12vw, 180px);
-  bottom: clamp(-120px, -9vh, -48px);
+  left: 173px;
+  bottom: -73px;
   z-index: 2;
-  width: clamp(260px, 33vw, 455px);
+  width: 455px;
   margin: 0;
   padding: 0;
   border: 0;
   background: transparent;
   cursor: pointer;
-  filter: drop-shadow(10px 18px 0 rgba(20, 12, 25, 0.28)) drop-shadow(0 0 28px rgba(255, 219, 238, 0.16));
+  filter:
+    drop-shadow(10px 18px 0 rgba(20, 12, 25, 0.28))
+    drop-shadow(0 0 28px rgba(255, 219, 238, 0.16));
   transition:
     transform 180ms steps(3, end),
     filter 180ms steps(3, end),
@@ -158,7 +227,9 @@ button {
 .character-card:hover,
 .character-card:focus-visible {
   transform: translate(-3px, -3px) scale(1.055);
-  filter: drop-shadow(13px 21px 0 rgba(20, 12, 25, 0.32)) drop-shadow(0 0 34px rgba(255, 219, 238, 0.26));
+  filter:
+    drop-shadow(13px 21px 0 rgba(20, 12, 25, 0.32))
+    drop-shadow(0 0 34px rgba(255, 219, 238, 0.26));
 }
 
 .character-card:focus-visible {
@@ -210,7 +281,7 @@ button {
   color: rgba(255, 247, 255, 0.88);
   background: rgba(22, 15, 27, 0.62);
   border: 2px solid rgba(255, 247, 255, 0.26);
-  font-size: clamp(10px, 0.95vw, 13px);
+  font-size: 13px;
   line-height: 1;
   letter-spacing: 0.04em;
   text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.48);
@@ -227,50 +298,51 @@ button {
   transform: translate(-50%, -5px);
 }
 
+/* ==========================================================================
+   Lyrics panel
+   ========================================================================== */
+
 .lyrics-panel {
   position: absolute;
-  left: clamp(430px, 51vw, 780px);
+  left: 734px;
   top: 55%;
   z-index: 2;
-  width: min(44vw, 610px);
+  width: 610px;
   min-height: 120px;
   transform: translateY(-50%);
-
   display: flex;
   align-items: center;
   justify-content: flex-start;
-
   color: var(--text);
   text-align: left;
   font-family: "Courier New", Courier, ui-monospace, monospace;
-  font-size: clamp(18px, 1.8vw, 28px);
+  font-size: 26px;
   font-weight: 700;
   line-height: 1.6;
   letter-spacing: 0.04em;
-
   text-shadow:
     3px 3px 0 var(--text-shadow),
     0 0 14px var(--soft-shadow),
     0 0 22px var(--panel-glow);
-
   pointer-events: none;
 }
+
+.lyrics-line {
+  display: inline-block;
+  animation: lyric-fade 600ms ease both;
+}
+
+/* ==========================================================================
+   Polaroid gallery overlay
+   ========================================================================== */
 
 .polaroid-layer {
   position: absolute;
   inset: 0;
   z-index: 10;
-
-  /*
-    FIX: Pakai grid, bukan flex.
-    Sebelumnya .polaroid-row dan .memory-detail menjadi dua flex item.
-    Walaupun salah satunya hidden, ukurannya tetap mendorong elemen lain,
-    sehingga detail foto/pesan bergeser dan saling tumpang tindih.
-  */
   display: grid;
   place-items: center;
-
-  padding: clamp(20px, 5vw, 72px);
+  padding: 72px;
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
@@ -288,8 +360,8 @@ button {
 
 .gallery-close {
   position: absolute;
-  top: clamp(16px, 3vw, 36px);
-  right: clamp(18px, 4vw, 48px);
+  top: 36px;
+  right: 48px;
   z-index: 4;
   width: 44px;
   height: 44px;
@@ -320,27 +392,22 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(10px, 2.1vw, 28px);
-  width: min(760px, 94vw);
+  gap: 28px;
+  width: 760px;
   margin-inline: auto;
   transform: translateY(0) scale(0.94);
   opacity: 1;
-  transition: transform 220ms steps(5, end), opacity 160ms steps(3, end), visibility 160ms steps(3, end);
-  -webkit-transition: transform 220ms steps(5, end), opacity 160ms steps(3, end), visibility 160ms steps(3, end);
-  -moz-transition: transform 220ms steps(5, end), opacity 160ms steps(3, end), visibility 160ms steps(3, end);
-  -ms-transition: transform 220ms steps(5, end), opacity 160ms steps(3, end), visibility 160ms steps(3, end);
-  -o-transition: transform 220ms steps(5, end), opacity 160ms steps(3, end), visibility 160ms steps(3, end);
-  -webkit-transform: translateY(0) scale(0.94);
-  -moz-transform: translateY(0) scale(0.94);
-  -ms-transform: translateY(0) scale(0.94);
-  -o-transform: translateY(0) scale(0.94);
+  transition:
+    transform 220ms steps(5, end),
+    opacity 160ms steps(3, end),
+    visibility 160ms steps(3, end);
 }
 
 .polaroid-card {
   position: relative;
-  width: clamp(96px, 14vw, 170px);
+  width: 170px;
   aspect-ratio: 0.78;
-  padding: clamp(6px, 0.95vw, 11px) clamp(6px, 0.95vw, 11px) clamp(22px, 2.8vw, 36px);
+  padding: 11px 11px 36px;
   border: 0;
   color: var(--photo-text);
   background: var(--paper);
@@ -371,8 +438,8 @@ button {
 }
 
 .polaroid-card:nth-child(1) { --tilt: -5deg; --float: 4px; }
-.polaroid-card:nth-child(2) { --tilt: 2deg; --float: -8px; }
-.polaroid-card:nth-child(3) { --tilt: 5deg; --float: 5px; }
+.polaroid-card:nth-child(2) { --tilt: 2deg;  --float: -8px; }
+.polaroid-card:nth-child(3) { --tilt: 5deg;  --float: 5px; }
 
 .polaroid__photo {
   position: relative;
@@ -389,7 +456,7 @@ button {
 
 .polaroid__photo::after,
 .memory-detail__photo::after {
-display: none;
+  display: none;
 }
 
 .polaroid__image,
@@ -410,20 +477,20 @@ display: none;
 }
 
 .polaroid__title {
-  font-size: clamp(11px, 1.35vw, 18px);
+  font-size: 18px;
 }
 
 .memory-detail__photo-title {
-  font-size: clamp(30px, 4.2vw, 54px);
+  font-size: 54px;
 }
 
 .polaroid__date {
   position: absolute;
   left: 8px;
   right: 8px;
-  bottom: clamp(5px, 0.7vw, 9px);
+  bottom: 9px;
   color: #252123;
-  font-size: clamp(7px, 0.8vw, 11px);
+  font-size: 11px;
   line-height: 1.1;
   font-weight: 700;
   text-align: center;
@@ -439,16 +506,20 @@ display: none;
   transform: translateY(0);
 }
 
+/* ==========================================================================
+   Memory detail view
+   ========================================================================== */
+
 .memory-detail {
   position: relative;
   z-index: 2;
   grid-area: 1 / 1;
   display: grid;
-  grid-template-columns: minmax(220px, 335px) minmax(320px, 560px);
+  grid-template-columns: 335px 560px;
   align-items: center;
   justify-content: center;
-  gap: clamp(38px, 5vw, 76px);
-  width: min(980px, calc(100vw - clamp(40px, 10vw, 144px)));
+  gap: 72px;
+  width: 980px;
   min-height: 450px;
   opacity: 0;
   visibility: hidden;
@@ -462,8 +533,8 @@ display: none;
 
 .memory-detail__polaroid {
   justify-self: end;
-  width: clamp(230px, 24vw, 335px);
-  padding: clamp(8px, 1.1vw, 13px) clamp(8px, 1.1vw, 13px) clamp(44px, 4.4vw, 64px);
+  width: 335px;
+  padding: 13px 13px 64px;
   background: var(--paper);
   box-shadow:
     8px 10px 0 rgba(0, 0, 0, 0.32),
@@ -490,7 +561,7 @@ display: none;
   z-index: 2;
   align-self: center;
   min-width: 0;
-  max-width: min(560px, 100%);
+  max-width: 560px;
   color: #fff7ff;
   text-align: left;
 }
@@ -507,7 +578,7 @@ display: none;
   background: rgba(111, 102, 102, 0.72);
   box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.22);
   cursor: pointer;
-  font-size: clamp(12px, 1vw, 15px);
+  font-size: 14px;
   font-weight: 700;
   text-shadow: 2px 2px 0 rgba(30, 18, 30, 0.55);
 }
@@ -527,7 +598,7 @@ display: none;
   margin: 0 0 14px;
   color: var(--date-pink);
   font-family: "Brush Script MT", "Segoe Script", "Comic Sans MS", cursive;
-  font-size: clamp(36px, 4.6vw, 64px);
+  font-size: 64px;
   font-weight: 700;
   line-height: 0.98;
   letter-spacing: 0.02em;
@@ -541,7 +612,7 @@ display: none;
   max-width: 560px;
   color: rgba(255, 247, 250, 0.96);
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(16px, 1.42vw, 22px);
+  font-size: 21px;
   font-weight: 700;
   line-height: 1.7;
   letter-spacing: 0.015em;
@@ -551,6 +622,10 @@ display: none;
   white-space: pre-line;
   overflow-wrap: break-word;
 }
+
+/* ==========================================================================
+   Body interaction states
+   ========================================================================== */
 
 body.is-opening .package-panel {
   animation: confirm-pulse 460ms steps(4, end) 1;
@@ -563,10 +638,6 @@ body.is-gallery-open .polaroid-layer {
 
 body.is-gallery-open .polaroid-row {
   transform: translateY(0) scale(1);
-  -webkit-transform: translateY(0) scale(1);
-  -moz-transform: translateY(0) scale(1);
-  -ms-transform: translateY(0) scale(1);
-  -o-transform: translateY(0) scale(1);
 }
 
 body.is-gallery-open .package-panel {
@@ -592,295 +663,45 @@ body.is-memory-open .memory-detail {
   transform: translateY(0) scale(1);
 }
 
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+
 @keyframes confirm-pulse {
-  0% { transform: translateY(-50%) scale(1); }
-  50% { transform: translateY(-50%) scale(1.025); }
+  0%   { transform: translateY(-50%) scale(1); }
+  50%  { transform: translateY(-50%) scale(1.025); }
   100% { transform: translateY(-50%) scale(1); }
 }
 
 @keyframes pixel-fall {
-  0% { transform: translate3d(0, -38px, 0) rotate(28deg); opacity: 0; }
-  12% { opacity: 0.95; }
+  0%   { transform: translate3d(0, -38px, 0) rotate(28deg); opacity: 0; }
+  12%  { opacity: 0.95; }
   100% { transform: translate3d(-52px, 128px, 0) rotate(28deg); opacity: 0; }
 }
 
-@media (max-width: 900px) {
-  body {
-    overflow: hidden;
+@keyframes lyric-fade {
+  0%   { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rotate-phone {
+  0%   { transform: rotate(0deg); }
+  50%  { transform: rotate(-90deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* ==========================================================================
+  Mobile: portrait rotate screen, landscape stage scaling via JS
+   ========================================================================== */
+
+@media screen and (max-width: 900px) and (orientation: portrait) {
+  #rotate-warning {
+    display: flex;
   }
 
   .hero,
-  .hero__stage {
-    height: 100dvh;
-    min-height: 100dvh;
-    overflow: hidden;
+  .start-screen {
+    visibility: hidden;
+    pointer-events: none;
   }
-
-  .character-card {
-    left: 50%;
-    bottom: -110px;
-    width: min(76vw, 390px);
-    transform: translateX(-50%);
-  }
-
-  .character-card:hover,
-  .character-card:focus-visible {
-    transform: translateX(-50%) translate(-3px, -3px) scale(1.045);
-  }
-
-  .lyrics-panel {
-    left: 50%;
-    top: 21%;
-    width: min(86vw, 560px);
-    min-height: 100px;
-    transform: translateX(-50%);
-    justify-content: center;
-    text-align: center;
-    font-size: clamp(18px, 5vw, 28px);
-  }
-
-  .lyrics-line {
-  display: inline-block;
-  animation: lyricFade 600ms ease both;
-}
-
-@keyframes lyricFade {
-  0% {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-  body.is-memory-open .polaroid-layer {
-    align-items: start;
-    overflow-y: auto;
-    padding-top: clamp(68px, 12vw, 96px);
-    padding-bottom: clamp(24px, 7vw, 56px);
-  }
-
-  .polaroid-row {
-    width: min(92vw, 560px);
-    gap: 8px;
-  }
-
-  .polaroid-card {
-    width: clamp(86px, 27vw, 142px);
-  }
-
-  .memory-detail {
-    grid-template-columns: 1fr;
-    width: min(92vw, 620px);
-    gap: 20px;
-    padding-top: 36px;
-    min-height: auto;
-    text-align: center;
-  }
-
-  .memory-detail__polaroid {
-    width: min(70vw, 300px);
-    justify-self: center;
-  }
-
-  .memory-detail__content {
-    justify-self: center;
-    width: 100%;
-    text-align: center;
-  }
-
-  .memory-detail__back {
-    margin-bottom: 14px;
-  }
-
-  .memory-detail__date {
-    font-size: clamp(34px, 10vw, 56px);
-  }
-
-  .memory-detail__message {
-    font-size: clamp(15px, 4.1vw, 19px);
-  }
-}
-
-@media (max-width: 560px) {
-  .polaroid-layer {
-    align-items: center;
-    padding-top: clamp(20px, 5vw, 72px);
-  }
-
-  .polaroid-row {
-    flex-wrap: nowrap;
-    gap: 6px;
-    transform: translateY(0) scale(0.96);
-  }
-
-  body.is-gallery-open .polaroid-row {
-    transform: translateY(0) scale(1);
-  }
-
-  body.is-memory-open .polaroid-row {
-    transform: translateY(0) scale(0.94);
-  }
-
-  .gallery-close {
-    top: 18px;
-    right: 18px;
-  }
-
-  .memory-detail {
-    padding-top: 0;
-  }
-
-  .memory-detail__polaroid {
-    width: min(76vw, 255px);
-    padding-bottom: 42px;
-  }
-}
-
-@media (max-width: 480px) {
-  .character-card {
-    bottom: -92px;
-    width: min(88vw, 340px);
-  }
-
-  .package-panel {
-    top: 18%;
-  }
-}
-
-
-#rotate-warning{
-
-    display:none;
-
-    position:fixed;
-
-    top:0;
-
-    left:0;
-
-    width:100vw;
-
-    height:100vh;
-
-    background:#000;
-
-    color:white;
-
-    z-index:999999;
-
-    justify-content:center;
-
-    align-items:center;
-
-    text-align:center;
-
-}
-
-.rotate-content{
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-}
-
-.phone-icon{
-
-    font-size:90px;
-
-    animation:rotatePhone 1.5s infinite;
-
-}
-
-.rotate-content h2{
-
-    margin-top:20px;
-
-    font-size:34px;
-
-}
-
-.rotate-content p{
-
-    margin-top:10px;
-
-    font-size:20px;
-
-    opacity:.8;
-
-}
-
-@keyframes rotatePhone{
-
-    0%{
-
-        transform:rotate(0deg);
-
-    }
-
-    50%{
-
-        transform:rotate(-90deg);
-
-    }
-
-    100%{
-
-        transform:rotate(0deg);
-
-    }
-
-}
-
-/* HP PORTRAIT */
-
-@media screen and (max-width:900px) and (orientation:portrait){
-
-    #rotate-warning{
-
-        display:flex;
-
-    }
-
-    body{
-
-        overflow:hidden;
-
-    }
-
-}
-
-
-@media screen and (max-width:900px) and (orientation:landscape){
-
-    #rotate-warning{
-
-        display:none;
-
-    }
-
-}
-
-
-@media (orientation: landscape){
-
-.hero__stage{
-
-        transform-origin:center center;
-
-        transform:scale(
-            min(
-                calc(100vw / 1440),
-                calc(100vh / 810)
-            )
-        );
-
-    }
-
 }
