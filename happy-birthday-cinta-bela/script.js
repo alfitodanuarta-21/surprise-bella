@@ -1,6 +1,6 @@
 const STAGE_WIDTH = 1440;
 const STAGE_HEIGHT = 810;
-const MOBILE_LANDSCAPE_QUERY = window.matchMedia("(max-width: 900px) and (orientation: landscape)");
+const MOBILE_LANDSCAPE_QUERY = window.matchMedia("(orientation: landscape) and (max-height: 500px)");
 
 const openGalleryButtons = document.querySelectorAll("[data-open-gallery]");
 const gallery = document.querySelector("[data-gallery]");
@@ -90,25 +90,32 @@ function startWebsiteMusic() {
 
 startButton?.addEventListener("click", startWebsiteMusic);
 
+function getViewportSize() {
+  const viewport = window.visualViewport;
+
+  return {
+    width: viewport?.width ?? window.innerWidth,
+    height: viewport?.height ?? window.innerHeight,
+  };
+}
+
 function updateStageScale() {
   if (!heroStage) return;
 
   if (MOBILE_LANDSCAPE_QUERY.matches) {
-    const scale = Math.min(
-      window.innerWidth / STAGE_WIDTH,
-      window.innerHeight / STAGE_HEIGHT
-    );
+    const { width, height } = getViewportSize();
+    const scale = Math.min(width / STAGE_WIDTH, height / STAGE_HEIGHT);
 
     heroStage.style.transform = `scale(${scale})`;
-    heroStage.style.transformOrigin = "center center";
   } else {
     heroStage.style.transform = "";
-    heroStage.style.transformOrigin = "";
   }
 }
 
 window.addEventListener("resize", updateStageScale);
 window.addEventListener("orientationchange", updateStageScale);
+window.visualViewport?.addEventListener("resize", updateStageScale);
+window.visualViewport?.addEventListener("scroll", updateStageScale);
 MOBILE_LANDSCAPE_QUERY.addEventListener("change", updateStageScale);
 updateStageScale();
 
