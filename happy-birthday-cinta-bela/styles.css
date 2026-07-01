@@ -71,13 +71,13 @@ button {
   transform: translate(-2px, -2px);
 }
 
-.hero {
-  position: relative;
-  width: 100vw;
-  height: 100dvh;
-  min-height: 100dvh;
-  overflow: hidden;
-  isolation: isolate;
+.hero{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
 }
 
 .hero__background {
@@ -130,13 +130,11 @@ button {
 .pixel-rain i:nth-child(7) { left: 92%; top: 78%; animation-delay: -2.0s; }
 .pixel-rain i:nth-child(8) { left: 37%; top: 82%; animation-delay: -0.3s; }
 
-.hero__stage {
-  position: relative;
-  width: min(100%, 1440px);
-  height: 100dvh;
-  min-height: 100dvh;
-  margin-inline: auto;
-  overflow: hidden;
+.hero__stage{
+    position:relative;
+    width:1440px;
+    height:810px;
+    overflow:hidden;
 }
 
 .character-card {
@@ -864,6 +862,24 @@ body.is-memory-open .memory-detail {
     #rotate-warning{
 
         display:none;
+
+    }
+
+}
+
+
+@media (orientation: landscape){
+
+    .hero__stage{
+
+        transform-origin:center center;
+
+        transform:scale(
+            min(
+                calc(100vw / 1440),
+                calc(100vh / 810)
+            )
+        );
 
     }
 
