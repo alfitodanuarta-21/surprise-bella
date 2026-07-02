@@ -21,7 +21,15 @@ const startScreen = document.querySelector("#startScreen");
 const startButton = document.querySelector("#startButton");
 const lyricsPanel = document.querySelector("#lyricsPanel");
 
-const characterVoice = new Audio("assets/audio/jikoshokai.ogg");
+const characterVoice = new Audio ("assets/music/bella.MP3");
+
+characterVoice.addEventListener("canplay", () => {
+    console.log("VOICE BERHASIL DIMUAT");
+});
+
+characterVoice.addEventListener("error", (e) => {
+    console.log("VOICE GAGAL", e);
+});
 
 characterVoice.preload = "auto";
 characterVoice.loop = false;
