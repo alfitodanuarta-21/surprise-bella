@@ -21,6 +21,12 @@ const startScreen = document.querySelector("#startScreen");
 const startButton = document.querySelector("#startButton");
 const lyricsPanel = document.querySelector("#lyricsPanel");
 
+const characterVoice = new Audio("assets/audio/jikoshokai.ogg");
+
+characterVoice.preload = "auto";
+characterVoice.loop = false;
+characterVoice.volume = 1;
+
 const LYRICS = [
   { time: 0, text: "jatuh cinta memang manis" },
   { time: 6, text: "apalagi ada kamu disini" },
@@ -291,7 +297,17 @@ setExpandedState(false);
 setMemoryState(false);
 
 openGalleryButtons.forEach((button) => {
-  button.addEventListener("click", () => openGallery());
+  button.addEventListener("click", () => {
+
+    // Putar suara karakter
+    characterVoice.pause();
+    characterVoice.currentTime = 0;
+    characterVoice.play();
+
+    // Buka galeri seperti biasa
+    openGallery();
+
+  });
 });
 
 closeGalleryButton?.addEventListener("click", closeGallery);
