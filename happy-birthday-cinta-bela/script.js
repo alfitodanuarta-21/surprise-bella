@@ -21,7 +21,7 @@ const startScreen = document.querySelector("#startScreen");
 const startButton = document.querySelector("#startButton");
 const lyricsPanel = document.querySelector("#lyricsPanel");
 
-const characterVoice = new Audio ("assets/music/bella.mp3");
+const characterVoice = new Audio ("assets/music/bella.MP3");
 
 characterVoice.addEventListener("canplay", () => {
     console.log("VOICE BERHASIL DIMUAT");
