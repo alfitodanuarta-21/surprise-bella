@@ -310,14 +310,9 @@ openGalleryButtons.forEach((button) => {
     // Putar suara karakter
     characterVoice.pause();
     characterVoice.currentTime = 0;
-  characterVoice.play()
-  .then(() => {
-    alert("Audio berhasil diputar");
-  })
-  .catch((err) => {
-    alert("Audio gagal: " + err.name + "\n" + err.message);
+  characterVoice.play().catch((err) => {
     console.error(err);
-  });
+});
     // Buka galeri seperti biasa
     openGallery();
 
