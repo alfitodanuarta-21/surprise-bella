@@ -36,13 +36,26 @@ characterVoice.loop = false;
 characterVoice.volume = 1;
 
 const LYRICS = [
-  { time: 0, text: "jatuh cinta memang manis" },
-  { time: 6, text: "apalagi ada kamu disini" },
-  { time: 11, text: "genggam tanganku sayang" },
-  { time: 17, text: "kota ini tak sama tanpamu" },
-  { time: 22, text: "masih rasa ingin lagi" },
-  { time: 25, text: "habiskan waktu disini" },
-  { time: 28, text: "mungkin tiga atau empat hari lagi" },
+  { time: 0, text: "Semua kata yang terucap..." },
+  { time: 3, text: "Semua tertuju padamu, oh oh." },
+
+  { time: 12, text: "Semua arah yang ku tempuh..." },
+  { time: 15, text: "Semua tertuju padamu, ho uh wo." },
+
+  { time: 22, text: "Kau adalah semua jawaban..." },
+  { time: 28, text: "Dari doa yang ku panjatkan." },
+
+  { time: 33, text: "Dengan hadirmu di hidupku..." },
+  { time: 39, text: "Sudah ku merasa cukup." },
+
+  { time: 45, text: "Hati ini tlah menetapkan..." },
+  { time: 51, text: "Engkau sosok yang kan temani..." },
+
+  { time: 57, text: "Di masa ini..." },
+  { time: 60, text: "Masa nanti..." },
+  { time: 62, text: "Dan masa indah lainnya..." },
+
+//  { time: 66, text: "Bersamamu, Bella. ❤️" }
 ];
 
 let activeLyricIndex = -1;
